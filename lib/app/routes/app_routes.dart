@@ -12,6 +12,7 @@ abstract class Routes {
   static const CONCEPT_MAP = _Paths.CONCEPT_MAP;
   static const QUIZ_PLAY = _Paths.QUIZ_PLAY;
   static const QUIZ_RESULT = _Paths.QUIZ_RESULT;
+  static const PROFILE = _Paths.PROFILE;
 }
 
 abstract class _Paths {
@@ -25,4 +26,5 @@ abstract class _Paths {
   static const CONCEPT_MAP = '/concept-map';
   static const QUIZ_PLAY = '/quiz-play';
   static const QUIZ_RESULT = '/quiz-result';
+  static const PROFILE = '/profile';
 }

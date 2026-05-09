@@ -22,17 +22,17 @@ class HomeView extends GetView<HomeController> {
         ),
         actions: [
           IconButton(
-            icon: const Icon(
-              Icons.notifications_none,
-              color: Color(0xFF0056FF),
-            ),
+            icon: const Icon(Icons.notifications_none, color: Color(0xFF0056FF)),
             onPressed: () {},
           ),
-          const Padding(
-            padding: EdgeInsets.only(right: 16.0, left: 8.0),
-            child: CircleAvatar(
-              radius: 16,
-              backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=11'),
+          Padding(
+            padding: const EdgeInsets.only(right: 16.0, left: 8.0),
+            child: GestureDetector(
+              onTap: () => Get.toNamed('/profile'),
+              child: const CircleAvatar(
+                radius: 16,
+                backgroundImage: NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMRbK8wrAF8P6TAZTOi_r5ds5ccr9-KDhydA&s'),
+              ),
             ),
           ),
         ],

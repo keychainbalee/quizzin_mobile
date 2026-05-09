@@ -10,6 +10,8 @@ import '../modules/home/views/home_view.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/profile/bindings/profile_binding.dart';
+import '../modules/profile/views/profile_view.dart';
 import '../modules/quiz_play/bindings/quiz_play_binding.dart';
 import '../modules/quiz_play/views/quiz_play_view.dart';
 import '../modules/quiz_result/bindings/quiz_result_binding.dart';
@@ -80,6 +82,11 @@ class AppPages {
       name: _Paths.QUIZ_RESULT,
       page: () => const QuizResultView(),
       binding: QuizResultBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROFILE,
+      page: () => const ProfileView(),
+      binding: ProfileBinding(),
     ),
   ];
 }
