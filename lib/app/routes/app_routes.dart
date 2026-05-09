@@ -10,6 +10,8 @@ abstract class Routes {
   static const CHAPTER_DETAILS = _Paths.CHAPTER_DETAILS;
   static const SELECT_DIFFICULTY = _Paths.SELECT_DIFFICULTY;
   static const CONCEPT_MAP = _Paths.CONCEPT_MAP;
+  static const QUIZ_PLAY = _Paths.QUIZ_PLAY;
+  static const QUIZ_RESULT = _Paths.QUIZ_RESULT;
 }
 
 abstract class _Paths {
@@ -21,4 +23,6 @@ abstract class _Paths {
   static const CHAPTER_DETAILS = '/chapter-details';
   static const SELECT_DIFFICULTY = '/select-difficulty';
   static const CONCEPT_MAP = '/concept-map';
+  static const QUIZ_PLAY = '/quiz-play';
+  static const QUIZ_RESULT = '/quiz-result';
 }

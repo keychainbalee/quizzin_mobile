@@ -10,6 +10,10 @@ import '../modules/home/views/home_view.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/quiz_play/bindings/quiz_play_binding.dart';
+import '../modules/quiz_play/views/quiz_play_view.dart';
+import '../modules/quiz_result/bindings/quiz_result_binding.dart';
+import '../modules/quiz_result/views/quiz_result_view.dart';
 import '../modules/register/bindings/register_binding.dart';
 import '../modules/register/views/register_view.dart';
 import '../modules/select_difficulty/bindings/select_difficulty_binding.dart';
@@ -66,6 +70,16 @@ class AppPages {
       name: _Paths.CONCEPT_MAP,
       page: () => const ConceptMapView(),
       binding: ConceptMapBinding(),
+    ),
+    GetPage(
+      name: _Paths.QUIZ_PLAY,
+      page: () => const QuizPlayView(),
+      binding: QuizPlayBinding(),
+    ),
+    GetPage(
+      name: _Paths.QUIZ_RESULT,
+      page: () => const QuizResultView(),
+      binding: QuizResultBinding(),
     ),
   ];
 }

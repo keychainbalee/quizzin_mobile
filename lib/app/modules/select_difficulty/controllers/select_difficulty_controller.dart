@@ -12,6 +12,6 @@ class SelectDifficultyController extends GetxController {
     // Logika ketika tombol Start Quiz ditekan
     // Nanti akan diarahkan ke halaman kuis
     print('Memulai quiz dengan level: ${selectedDifficulty.value}');
-    // Get.toNamed('/quiz-play');
+    Get.toNamed('/quiz-play');
   }
 }

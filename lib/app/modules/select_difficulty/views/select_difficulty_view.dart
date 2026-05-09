@@ -106,7 +106,6 @@ class SelectDifficultyView extends GetView<SelectDifficultyController> {
     required String id, required String title, required String description, 
     required String estTime, required IconData icon, required Color iconBgColor, required Color iconColor
   }) {
-    // Obx digunakan di sini agar hanya kartu ini yang di-rebuild saat state berubah
     return Obx(() {
       bool isSelected = controller.selectedDifficulty.value == id;
       
