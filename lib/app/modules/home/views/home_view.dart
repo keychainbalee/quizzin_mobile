@@ -150,8 +150,6 @@ class HomeView extends GetView<HomeController> {
           ),
           const SizedBox(height: 16),
 
-          // SOLUSI: Menggunakan FittedBox dengan BoxFit.scaleDown
-          // Ini menjamin baris chip tidak akan pernah menembus batas layar.
           FittedBox(
             fit: BoxFit.scaleDown,
             child: Row(
@@ -312,8 +310,10 @@ class HomeView extends GetView<HomeController> {
                 ],
               ),
               const SizedBox(height: 16),
+
               OutlinedButton.icon(
-                onPressed: () {},
+                // Langsung arahkan ke halaman Chapter Details
+                onPressed: () => Get.toNamed('/chapter-details'),
                 icon: const Icon(Icons.quiz_outlined, size: 18),
                 label: const Text('Generate Quiz'),
                 style: OutlinedButton.styleFrom(
