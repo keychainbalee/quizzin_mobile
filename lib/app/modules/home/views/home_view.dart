@@ -31,7 +31,7 @@ class HomeView extends GetView<HomeController> {
               onTap: () => Get.toNamed('/profile'),
               child: const CircleAvatar(
                 radius: 16,
-                backgroundImage: NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMRbK8wrAF8P6TAZTOi_r5ds5ccr9-KDhydA&s'),
+                backgroundImage: NetworkImage(''),
               ),
             ),
           ),
