@@ -20,11 +20,11 @@ class FaceRegistrationController extends GetxController {
 
   @override
   void onClose() {
-    cameraController?.dispose(); // Jangan lupa matikan kamera saat halaman ditutup
+    cameraController?.dispose(); 
     super.onClose();
   }
 
-  // --- FUNGSI STEP 1: Mengambil Foto Profil ---
+  // FUNGSI STEP 1: Mengambil Foto Profil
   Future<void> pickProfileImage(ImageSource source) async {
     try {
       isLoading.value = true;
@@ -41,13 +41,13 @@ class FaceRegistrationController extends GetxController {
     }
   }
 
-  // --- FUNGSI TRANSISI KE STEP 2 ---
+  // FUNGSI TRANSISI KE STEP 2
   void goToFaceStep() {
     currentStep.value = 1;
     _initCamera(); // Hidupkan kamera saat masuk step ini
   }
 
-  // --- FUNGSI STEP 2: Inisialisasi Live Camera ---
+  // FUNGSI STEP 2: Inisialisasi Live Camera
   Future<void> _initCamera() async {
     try {
       final cameras = await availableCameras();
@@ -70,7 +70,7 @@ class FaceRegistrationController extends GetxController {
     }
   }
 
-  // --- FUNGSI STEP 2: Simulasi Deteksi ML Kit Real-time ---
+  // FUNGSI STEP 2: Simulasi Deteksi ML Kit Real-time
   void startRealtimeScan() {
     isScanningFace.value = true;
 
@@ -93,7 +93,7 @@ class FaceRegistrationController extends GetxController {
     });
   }
 
-  // --- TOMBOL KEMBALI & FINISH ---
+  // TOMBOL KEMBALI & FINISH
   void goBackStep() {
     if (currentStep.value > 0) {
       currentStep.value--;

@@ -118,8 +118,9 @@ class FaceRegistrationView extends GetView<FaceRegistrationController> {
     );
   }
 
-  void _showImagePickerBottomSheet(FaceRegistrationController controller, Color primaryColor) {
-    Get.bottomSheet(
+  // PERBAIKAN: Tambahkan kata kunci 'async' di sini
+  void _showImagePickerBottomSheet(FaceRegistrationController controller, Color primaryColor) async {
+    final ImageSource? source = await Get.bottomSheet<ImageSource>(
       Container(
         padding: const EdgeInsets.all(20),
         decoration: const BoxDecoration(
@@ -134,27 +135,24 @@ class FaceRegistrationView extends GetView<FaceRegistrationController> {
             ListTile(
               leading: Icon(Icons.camera_alt_outlined, color: primaryColor),
               title: const Text('Take from Camera'),
-              onTap: () async { 
-                Get.back(); // Tutup Bottom Sheet
-                await Future.delayed(const Duration(milliseconds: 200)); // Tunggu animasi selesai
-                controller.pickProfileImage(ImageSource.camera); 
-              },
+              onTap: () => Get.back(result: ImageSource.camera),
             ),
             ListTile(
               leading: Icon(Icons.photo_library_outlined, color: primaryColor),
               title: const Text('Choose from Gallery'),
-              onTap: () async { 
-                Get.back(); // Tutup Bottom Sheet
-                await Future.delayed(const Duration(milliseconds: 200)); // Tunggu animasi selesai
-                controller.pickProfileImage(ImageSource.gallery); 
-              },
+              onTap: () => Get.back(result: ImageSource.gallery),
             ),
             const SizedBox(height: 10),
           ],
         ),
       ),
     );
+    if (source != null) {
+      await Future.delayed(const Duration(milliseconds: 100));
+      controller.pickProfileImage(source);
+    }
   }
+
   // LANGKAH 2: LIVE CAMERA FACE ID 
   Widget _buildFaceIdStep(FaceRegistrationController controller, Color primaryColor) {
     return Column(
