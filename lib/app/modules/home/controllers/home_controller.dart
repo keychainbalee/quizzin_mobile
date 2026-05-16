@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
-  final userName = 'Ahmat Saputra'.obs;
+  final userName = 'Ahmat Putra'.obs;
   final streakDays = 5.obs;
   final level = 12.obs;
   final levelProgress = 0.75.obs;
@@ -55,5 +55,9 @@ class HomeController extends GetxController {
       colorText: Colors.white,
       margin: const EdgeInsets.all(16),
     );
+  }
+
+  void openAllMaterials() {
+    Get.toNamed('/all-materials');
   }
 }

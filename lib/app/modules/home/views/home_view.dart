@@ -56,7 +56,7 @@ class HomeView extends GetView<HomeController> {
                   const Text('Recent Materials', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black87)),
                   Obx(() => controller.recentMaterials.isEmpty 
                     ? const SizedBox() 
-                    : TextButton(onPressed: () {}, child: const Text('See All', style: TextStyle(color: Color(0xFF0056FF), fontWeight: FontWeight.w600)))
+                    : TextButton(onPressed: () => controller.openAllMaterials(), child: const Text('See All', style: TextStyle(color: Color(0xFF0056FF), fontWeight: FontWeight.w600)))
                   )
                 ],
               ),

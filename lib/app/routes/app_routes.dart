@@ -13,6 +13,8 @@ abstract class Routes {
   static const QUIZ_PLAY = _Paths.QUIZ_PLAY;
   static const QUIZ_RESULT = _Paths.QUIZ_RESULT;
   static const PROFILE = _Paths.PROFILE;
+  static const ALL_MATERIALS = _Paths.ALL_MATERIALS;
+  static const FORGOT_PASSWORD = _Paths.FORGOT_PASSWORD;
 }
 
 abstract class _Paths {
@@ -27,4 +29,6 @@ abstract class _Paths {
   static const QUIZ_PLAY = '/quiz-play';
   static const QUIZ_RESULT = '/quiz-result';
   static const PROFILE = '/profile';
+  static const ALL_MATERIALS = '/all-materials';
+  static const FORGOT_PASSWORD = '/forgot-password';
 }
