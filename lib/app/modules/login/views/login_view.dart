@@ -15,7 +15,7 @@ class LoginView extends GetView<LoginController> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Image.asset('assets/images/logos/logo2.png', width: 100, height: 100, fit: BoxFit.contain,
+                Image.asset('assets/images/logos/logoblue.png', width: 100, height: 100, fit: BoxFit.contain,
                 ),
                 const SizedBox(height: 24),
                 const Text("Welcome Back", style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
@@ -55,19 +55,6 @@ class LoginView extends GetView<LoginController> {
                         ? const CircularProgressIndicator(color: Colors.white)
                         : const Text("Login", style: TextStyle(color: Colors.white, fontSize: 18)),
                   )),
-                ),
-                const SizedBox(height: 24),
-                const Text("OR CONTINUE WITH"),
-                const SizedBox(height: 24),
-                
-                OutlinedButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(Icons.g_mobiledata, size: 30),
-                  label: const Text("Google"),
-                  style: OutlinedButton.styleFrom(
-                    minimumSize: const Size(double.infinity, 55),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))
-                  ),
                 ),
                 const SizedBox(height: 24),
                 Row(
