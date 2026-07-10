@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:quizzin/app/modules/profile/controllers/profile_controller.dart';
+import '../controllers/profile_controller.dart';
 
 class ProfileView extends GetView<ProfileController> {
   const ProfileView({Key? key}) : super(key: key);
@@ -24,18 +24,18 @@ class ProfileView extends GetView<ProfileController> {
           mainAxisSize: MainAxisSize.min,
           children: [
             const Text(
-              'Update Profile Photo',
+              'Perbarui Foto Profil',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
             ListTile(
               leading: Icon(Icons.camera_alt_outlined, color: primaryColor),
-              title: const Text('Take from Camera'),
+              title: const Text('Ambil dari Kamera'),
               onTap: () => Get.back(result: ImageSource.camera),
             ),
             ListTile(
               leading: Icon(Icons.photo_library_outlined, color: primaryColor),
-              title: const Text('Choose from Gallery'),
+              title: const Text('Pilih dari Galeri'),
               onTap: () => Get.back(result: ImageSource.gallery),
             ),
             const SizedBox(height: 10),
@@ -49,132 +49,46 @@ class ProfileView extends GetView<ProfileController> {
     }
   }
 
-  void _showChangePasswordDialog(BuildContext context, Color primaryColor) {
+  void _showLogoutConfirmation(BuildContext context) {
     Get.dialog(
       AlertDialog(
         backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         title: const Text(
-          'Change Password',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
-            color: Color(0xFF1A365D),
-          ),
+          'Keluar Akun',
+          style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1E293B)),
         ),
-        content: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              _buildDialogPasswordField(
-                'Current Password',
-                controller.currentPasswordController,
-              ),
-              const SizedBox(height: 16),
-              _buildDialogPasswordField(
-                'New Password',
-                controller.newPasswordController,
-              ),
-              const SizedBox(height: 16),
-              _buildDialogPasswordField(
-                'Confirm New Password',
-                controller.confirmPasswordController,
-              ),
-            ],
-          ),
+        content: const Text(
+          'Apakah Anda yakin ingin keluar dari akun Anda?',
+          style: TextStyle(color: Color(0xFF64748B), height: 1.4),
         ),
         actions: [
           TextButton(
-            onPressed: () {
-              controller.clearPasswordFields();
-              Get.back();
-            },
+            onPressed: () => Get.back(),
             child: const Text(
-              'Cancel',
-              style: TextStyle(color: Colors.grey, fontWeight: FontWeight.w600),
+              'Batal',
+              style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
             ),
           ),
-          Obx(
-            () => ElevatedButton(
-              onPressed: controller.isLoading.value
-                  ? null
-                  : () => controller.changePassword(),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: primaryColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 10,
-                ),
+          ElevatedButton(
+            onPressed: () {
+              Get.back();
+              controller.logout();
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFFD32F2F),
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
               ),
-              child: controller.isLoading.value
-                  ? const SizedBox(
-                      height: 16,
-                      width: 16,
-                      child: CircularProgressIndicator(
-                        color: Colors.white,
-                        strokeWidth: 2,
-                      ),
-                    )
-                  : const Text(
-                      'Update',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+            ),
+            child: const Text(
+              'Keluar',
+              style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
         ],
       ),
-      barrierDismissible: false,
-    );
-  }
-
-  Widget _buildDialogPasswordField(
-    String label,
-    TextEditingController textController,
-  ) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
-            color: Colors.black54,
-          ),
-        ),
-        const SizedBox(height: 8),
-        SizedBox(
-          height: 45,
-          child: TextField(
-            controller: textController,
-            obscureText: true,
-            style: const TextStyle(fontSize: 14),
-            decoration: InputDecoration(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 14),
-              filled: true,
-              fillColor: const Color(0xFFF8FAFC),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(color: Colors.grey.shade300),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(color: Colors.grey.shade300),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: const BorderSide(color: Color(0xFF0056FF)),
-              ),
-            ),
-          ),
-        ),
-      ],
     );
   }
 
@@ -185,14 +99,14 @@ class ProfileView extends GetView<ProfileController> {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xFFF8FAFC),
         elevation: 0,
         leading: Navigator.canPop(context) ? IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black87),
           onPressed: () => Get.back(),
         ) : null,
         title: const Text(
-          'Profile',
+          'Profil',
           style: TextStyle(
             color: Colors.black87,
             fontWeight: FontWeight.bold,
@@ -206,11 +120,9 @@ class ProfileView extends GetView<ProfileController> {
         color: primaryColor,
         child: Obx(() {
           if (controller.isFetchingProfile.value) {
-            // --- SKELETON ANIMASI ---
             return PulsingSkeleton(child: _buildSkeletonUI());
           }
           if (controller.hasError.value) {
-            // --- UI ERROR (TIMEOUT/GAGAL) ---
             return ListView(
               physics: const AlwaysScrollableScrollPhysics(),
               children: [
@@ -285,11 +197,15 @@ class ProfileView extends GetView<ProfileController> {
   }
 
   Widget _buildActualContent(BuildContext context, Color primaryColor) {
+    final String fullName = controller.userData['full_name'] ?? 'Pengguna Quizzin';
+    final String academicLevel = controller.userData['academic_level'] ?? 'Umum';
+
     return SingleChildScrollView(
       physics: const AlwaysScrollableScrollPhysics(),
       padding: const EdgeInsets.all(24.0),
       child: Column(
         children: [
+          // Header Profile Section
           Center(
             child: Column(
               children: [
@@ -304,42 +220,41 @@ class ProfileView extends GetView<ProfileController> {
                         border: Border.all(color: Colors.white, width: 4),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
+                            color: Colors.black.withOpacity(0.08),
                             blurRadius: 10,
+                            offset: const Offset(0, 4),
                           ),
                         ],
                       ),
-                      child: Obx(
-                        () => ClipOval(
-                          child: Image.network(
-                            controller.profilePicUrl.value,
-                            fit: BoxFit.cover,
-                            loadingBuilder: (context, child, loadingProgress) {
-                              if (loadingProgress == null) return child;
-                              return Container(
+                      child: ClipOval(
+                        child: Image.network(
+                          controller.profilePicUrl.value,
+                          fit: BoxFit.cover,
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) return child;
+                            return Container(
+                              color: Colors.grey.shade200,
+                              child: const Center(
+                                child: SizedBox(
+                                  width: 24,
+                                  height: 24,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    color: Color(0xFF0056FF),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                          errorBuilder: (context, error, stackTrace) =>
+                              Container(
                                 color: Colors.grey.shade200,
-                                child: const Center(
-                                  child: SizedBox(
-                                    width: 24,
-                                    height: 24,
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 2,
-                                      color: Color(0xFF0056FF),
-                                    ),
-                                  ),
+                                child: const Icon(
+                                  Icons.person,
+                                  color: Colors.grey,
+                                  size: 40,
                                 ),
-                              );
-                            },
-                            errorBuilder: (context, error, stackTrace) =>
-                                Container(
-                                  color: Colors.grey.shade200,
-                                  child: const Icon(
-                                    Icons.person,
-                                    color: Colors.grey,
-                                    size: 40,
-                                  ),
-                                ),
-                          ),
+                              ),
                         ),
                       ),
                     ),
@@ -354,22 +269,31 @@ class ProfileView extends GetView<ProfileController> {
                           border: Border.all(color: Colors.white, width: 2),
                         ),
                         child: const Icon(
-                          Icons.edit,
+                          Icons.camera_alt,
                           color: Colors.white,
-                          size: 16,
+                          size: 14,
                         ),
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 12),
-                const Text(
-                  'TAP TO UPDATE PHOTO',
-                  style: TextStyle(
-                    fontSize: 10,
+                const SizedBox(height: 16),
+                Text(
+                  fullName,
+                  style: const TextStyle(
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: Colors.grey,
-                    letterSpacing: 1.0,
+                    color: Color(0xFF1E293B),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  academicLevel,
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey.shade500,
                   ),
                 ),
               ],
@@ -377,11 +301,12 @@ class ProfileView extends GetView<ProfileController> {
           ),
           const SizedBox(height: 24),
 
+          // Statistics Dashboard Row
           Container(
             padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(16),
               border: Border.all(color: Colors.grey.shade200),
             ),
             child: Row(
@@ -393,128 +318,81 @@ class ProfileView extends GetView<ProfileController> {
                 ),
                 Container(height: 30, width: 1, color: Colors.grey.shade200),
                 _buildStatColumn(
-                  '🔥 ${controller.userData['streak_days'] ?? 0} Days',
-                  'Streak',
+                  '🔥 ${controller.userData['streak_days'] ?? 0} Hari',
+                  'Streak Belajar',
                 ),
                 Container(height: 30, width: 1, color: Colors.grey.shade200),
                 _buildStatColumn(
                   '🎓 ${controller.userData['subjects_mastered'] ?? 0}',
-                  'Mastered',
+                  'Kuasai Bab',
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 28),
 
-          _buildSectionCard(
-            icon: Icons.person_outline,
-            title: 'Personal Information',
+          // Settings Menu Section
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildInputField('Full Name', controller.nameController),
-              const SizedBox(height: 16),
-              _buildInputField(
-                'Email Address',
-                controller.emailController,
-                readOnly: true,
+              const Padding(
+                padding: EdgeInsets.only(left: 4, bottom: 12),
+                child: Text(
+                  'PENGATURAN AKUN',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF64748B),
+                    letterSpacing: 0.5,
+                  ),
+                ),
               ),
-            ],
-          ),
-          const SizedBox(height: 16),
-
-          _buildSectionCard(
-            icon: Icons.school_outlined,
-            title: 'Academic Details',
-            children: [
-              _buildInputField(
-                'Academic Level',
-                controller.levelController,
-                hasDropdown: true,
+              _buildMenuTile(
+                icon: Icons.person_outline_rounded,
+                title: 'Informasi Profil & Akademik',
+                subtitle: 'Atur nama lengkap, tingkat pendidikan, dan jurusan',
+                onTap: () => Get.toNamed('/edit-profile'),
               ),
-              const SizedBox(height: 16),
-              _buildInputField(
-                'Major/Area of Interest',
-                controller.majorController,
+              _buildMenuTile(
+                icon: Icons.lock_outline_rounded,
+                title: 'Email & Keamanan',
+                subtitle: 'Lihat alamat email dan atur pembaruan kata sandi',
+                onTap: () => Get.toNamed('/security-settings'),
               ),
-            ],
-          ),
-          const SizedBox(height: 16),
-
-          _buildSectionCard(
-            icon: Icons.settings_outlined,
-            title: 'Security & Preferences',
-            children: [
-              _buildPreferenceTile(
-                Icons.lock_outline,
-                'Change Password',
-                onTap: () => _showChangePasswordDialog(context, primaryColor),
+              _buildMenuTile(
+                icon: Icons.notifications_none_rounded,
+                title: 'Pengaturan Notifikasi',
+                subtitle: 'Kelola pengingat harian dan peringatan kuis',
+                onTap: () => Get.toNamed('/notification-settings'),
+              ),
+              _buildMenuTile(
+                icon: Icons.help_outline_rounded,
+                title: 'Tanya Jawab (FAQ)',
+                subtitle: 'Pusat informasi dan cara belajar di Quizzin',
+                onTap: () => Get.toNamed('/faq'),
               ),
               const SizedBox(height: 12),
-              _buildPreferenceTile(
-                Icons.notifications_none,
-                'Notification Settings',
-                onTap: () {},
+              const Padding(
+                padding: EdgeInsets.only(left: 4, bottom: 12),
+                child: Text(
+                  'SESI',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF64748B),
+                    letterSpacing: 0.5,
+                  ),
+                ),
+              ),
+              _buildMenuTile(
+                icon: Icons.logout_rounded,
+                title: 'Keluar Akun',
+                subtitle: 'Keluar secara aman dari sesi aktif saat ini',
+                onTap: () => _showLogoutConfirmation(context),
               ),
             ],
           ),
-          const SizedBox(height: 32),
-
-          SizedBox(
-            width: double.infinity,
-            height: 50,
-            child: Obx(
-              () => ElevatedButton.icon(
-                onPressed: controller.isLoading.value
-                    ? null
-                    : () => controller.saveChanges(),
-                icon: controller.isLoading.value
-                    ? const SizedBox(
-                        height: 20,
-                        width: 20,
-                        child: CircularProgressIndicator(
-                          color: Colors.white,
-                          strokeWidth: 2,
-                        ),
-                      )
-                    : const Icon(Icons.save_outlined, size: 20),
-                label: Text(
-                  controller.isLoading.value ? 'Saving...' : 'Save Changes',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: primaryColor,
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(height: 16),
-
-          SizedBox(
-            width: double.infinity,
-            height: 50,
-            child: OutlinedButton.icon(
-              onPressed: () => controller.logout(),
-              icon: const Icon(Icons.logout, size: 20),
-              label: const Text(
-                'Logout',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              style: OutlinedButton.styleFrom(
-                foregroundColor: const Color(0xFFD32F2F),
-                side: const BorderSide(color: Color(0xFFD32F2F)),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-            ),
-          ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 24),
         ],
       ),
     );
@@ -533,88 +411,31 @@ class ProfileView extends GetView<ProfileController> {
               shape: BoxShape.circle,
             ),
           ),
-          const SizedBox(height: 12),
-          Container(width: 120, height: 10, color: Colors.grey.shade300),
+          const SizedBox(height: 16),
+          Container(width: 140, height: 18, color: Colors.grey.shade300),
+          const SizedBox(height: 8),
+          Container(width: 80, height: 12, color: Colors.grey.shade300),
           const SizedBox(height: 32),
           Container(
             height: 80,
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(16),
               border: Border.all(color: Colors.grey.shade200),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _buildSkeletonBox(40, 40),
-                _buildSkeletonBox(40, 40),
-                _buildSkeletonBox(40, 40),
-              ],
-            ),
           ),
-          const SizedBox(height: 24),
-          _buildSkeletonCard(2),
-          const SizedBox(height: 16),
-          _buildSkeletonCard(2),
-          const SizedBox(height: 16),
-          _buildSkeletonCard(2),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSkeletonBox(double width, double height) {
-    return Container(
-      width: width,
-      height: height,
-      decoration: BoxDecoration(
-        color: Colors.grey.shade200,
-        borderRadius: BorderRadius.circular(8),
-      ),
-    );
-  }
-
-  Widget _buildSkeletonCard(int fieldCount) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey.shade200),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(width: 20, height: 20, color: Colors.grey.shade300),
-              const SizedBox(width: 8),
-              Container(width: 150, height: 16, color: Colors.grey.shade300),
-            ],
-          ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 32),
           ...List.generate(
-            fieldCount,
+            5,
             (index) => Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: 100,
-                    height: 12,
-                    color: Colors.grey.shade300,
-                  ),
-                  const SizedBox(height: 8),
-                  Container(
-                    width: double.infinity,
-                    height: 48,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade100,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                ],
+              padding: const EdgeInsets.only(bottom: 12.0),
+              child: Container(
+                height: 64,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: Colors.grey.shade200),
+                ),
               ),
             ),
           ),
@@ -632,7 +453,7 @@ class ProfileView extends GetView<ProfileController> {
           style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
-            color: Color(0xFF1A365D),
+            color: Color(0xFF1E293B),
           ),
         ),
         const SizedBox(height: 4),
@@ -648,127 +469,62 @@ class ProfileView extends GetView<ProfileController> {
     );
   }
 
-  Widget _buildSectionCard({
+  Widget _buildMenuTile({
     required IconData icon,
     required String title,
-    required List<Widget> children,
+    required String subtitle,
+    required VoidCallback onTap,
+    Color textColor = const Color(0xFF1E293B),
+    Color iconColor = const Color(0xFF0056FF),
   }) {
     return Container(
-      padding: const EdgeInsets.all(20),
+      margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey.shade200),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(icon, color: const Color(0xFF1A365D), size: 20),
-              const SizedBox(width: 8),
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          ...children,
-        ],
-      ),
-    );
-  }
-
-  Widget _buildInputField(
-    String label,
-    TextEditingController textController, {
-    bool hasDropdown = false,
-    bool readOnly = false,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
-            color: Colors.black54,
-          ),
-        ),
-        const SizedBox(height: 8),
-        SizedBox(
-          height: 48,
-          child: TextField(
-            controller: textController,
-            readOnly: readOnly,
-            style: TextStyle(
-              fontSize: 14,
-              color: readOnly ? Colors.black38 : Colors.black87,
-            ),
-            decoration: InputDecoration(
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 0,
-              ),
-              filled: true,
-              fillColor: readOnly
-                  ? Colors.grey.shade100
-                  : const Color(0xFFF8FAFC),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(color: Colors.grey.shade300),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(color: Colors.grey.shade300),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: const BorderSide(color: Color(0xFF0056FF)),
-              ),
-              suffixIcon: hasDropdown
-                  ? const Icon(Icons.keyboard_arrow_down, color: Colors.grey)
-                  : null,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildPreferenceTile(
-    IconData icon,
-    String title, {
-    required VoidCallback onTap,
-  }) {
-    return Container(
-      decoration: BoxDecoration(
-        color: const Color(0xFFF8FAFC),
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.grey.shade300),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: const Color(0xFFE2E8F0), width: 1),
       ),
       child: ListTile(
-        leading: Icon(icon, color: Colors.black87, size: 20),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+        leading: Container(
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: iconColor.withOpacity(0.08),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Icon(icon, color: iconColor, size: 20),
+        ),
         title: Text(
           title,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: textColor,
+          ),
         ),
-        trailing: const Icon(Icons.chevron_right, color: Colors.grey),
+        subtitle: Text(
+          subtitle,
+          style: TextStyle(
+            fontSize: 11,
+            color: Colors.grey.shade400,
+          ),
+        ),
+        trailing: Icon(
+          Icons.chevron_right_rounded,
+          color: textColor == const Color(0xFFD32F2F)
+              ? const Color(0xFFD32F2F).withOpacity(0.5)
+              : Colors.grey.shade300,
+          size: 22,
+        ),
         onTap: onTap,
-        dense: true,
-        visualDensity: const VisualDensity(vertical: -2),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
       ),
     );
   }
 }
 
-// --- WIDGET KHUSUS: ANIMASI SKELETON BERKEDIP ---
 class PulsingSkeleton extends StatefulWidget {
   final Widget child;
   const PulsingSkeleton({Key? key, required this.child}) : super(key: key);
@@ -784,7 +540,6 @@ class _PulsingSkeletonState extends State<PulsingSkeleton>
   @override
   void initState() {
     super.initState();
-    // Mengatur animasi berulang bolak-balik setiap 800ms
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 800),

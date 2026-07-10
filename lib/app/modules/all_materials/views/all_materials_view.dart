@@ -35,7 +35,7 @@ class AllMaterialsView extends GetView<AllMaterialsController> {
           onPressed: () => Get.back(),
         ) : null,
         title: const Text(
-          'All Materials',
+          'Semua Materi',
           style: TextStyle(
             color: Colors.black87,
             fontWeight: FontWeight.bold,
@@ -52,7 +52,7 @@ class AllMaterialsView extends GetView<AllMaterialsController> {
             child: TextField(
               controller: controller.searchController,
               decoration: InputDecoration(
-                hintText: 'Search documents...',
+                hintText: 'Cari dokumen...',
                 hintStyle: const TextStyle(color: Colors.grey, fontSize: 14),
                 prefixIcon: const Icon(Icons.search, color: Colors.grey),
                 filled: true,
@@ -119,7 +119,7 @@ class AllMaterialsView extends GetView<AllMaterialsController> {
                                 ),
                                 const SizedBox(height: 16),
                                 const Text(
-                                  'No materials found',
+                                  'Materi tidak ditemukan',
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
@@ -240,9 +240,9 @@ class AllMaterialsView extends GetView<AllMaterialsController> {
 
                               Text(
                                 isProcessing
-                                    ? 'Processing...'
+                                    ? 'Memproses...'
                                     : (isFailed
-                                          ? 'Failed'
+                                          ? 'Gagal'
                                           : material['time'].toString()),
                                 style: TextStyle(
                                   fontSize: 10,

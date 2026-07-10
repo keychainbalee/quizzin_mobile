@@ -7,6 +7,18 @@ class HistoryController extends GetxController {
   final isLoading = true.obs;
   final historyList = <Map<String, dynamic>>[].obs;
   final hasError = false.obs;
+  final selectedFilter = 0.obs; // 0: Semua, 1: Tinggi (>= 80), 2: Sedang (60 - 79), 3: Rendah (< 60)
+
+  List<Map<String, dynamic>> get filteredHistoryList {
+    if (selectedFilter.value == 0) return historyList;
+    if (selectedFilter.value == 1) {
+      return historyList.where((item) => (item['total_score'] ?? 0) >= 80).toList();
+    }
+    if (selectedFilter.value == 2) {
+      return historyList.where((item) => (item['total_score'] ?? 0) >= 60 && (item['total_score'] ?? 0) < 80).toList();
+    }
+    return historyList.where((item) => (item['total_score'] ?? 0) < 60).toList();
+  }
 
   @override
   void onInit() {

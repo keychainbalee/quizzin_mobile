@@ -19,6 +19,10 @@ abstract class Routes {
   static const MAIN_NAVIGATION = _Paths.MAIN_NAVIGATION;
   static const SCAN = _Paths.SCAN;
   static const HISTORY = _Paths.HISTORY;
+  static const EDIT_PROFILE = _Paths.EDIT_PROFILE;
+  static const SECURITY_SETTINGS = _Paths.SECURITY_SETTINGS;
+  static const NOTIFICATION_SETTINGS = _Paths.NOTIFICATION_SETTINGS;
+  static const FAQ = _Paths.FAQ;
 }
 
 abstract class _Paths {
@@ -39,4 +43,8 @@ abstract class _Paths {
   static const MAIN_NAVIGATION = '/main-navigation';
   static const SCAN = '/scan';
   static const HISTORY = '/history';
+  static const EDIT_PROFILE = '/edit-profile';
+  static const SECURITY_SETTINGS = '/security-settings';
+  static const NOTIFICATION_SETTINGS = '/notification-settings';
+  static const FAQ = '/faq';
 }

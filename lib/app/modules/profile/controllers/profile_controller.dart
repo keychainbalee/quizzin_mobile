@@ -3,8 +3,10 @@ import 'package:dio/dio.dart' as dio_pkg;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:quizzin/app/services/api_service.dart';
 import 'package:quizzin/app/services/auth_service.dart';
+import 'package:image_cropper/image_cropper.dart';
 
 class ProfileController extends GetxController {
   final nameController = TextEditingController();
@@ -20,6 +22,10 @@ class ProfileController extends GetxController {
   final hasError = false.obs;
   final isLoading = false.obs;
 
+  final isDailyReminderEnabled = true.obs;
+  final isStreakAlertEnabled = true.obs;
+  final isNewMaterialAlertEnabled = true.obs;
+
   final profilePicUrl = ''.obs;
   final userData = <String, dynamic>{}.obs;
 
@@ -32,6 +38,36 @@ class ProfileController extends GetxController {
     super.onInit();
     _authService = Get.find<AuthService>();
     fetchProfile();
+    loadNotificationSettings();
+  }
+
+  Future<void> loadNotificationSettings() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      isDailyReminderEnabled.value = prefs.getBool('daily_reminder') ?? true;
+      isStreakAlertEnabled.value = prefs.getBool('streak_alert') ?? true;
+      isNewMaterialAlertEnabled.value = prefs.getBool('new_material_alert') ?? true;
+    } catch (e) {
+      debugPrint('Error loading notification settings: $e');
+    }
+  }
+
+  Future<void> toggleDailyReminder(bool value) async {
+    isDailyReminderEnabled.value = value;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('daily_reminder', value);
+  }
+
+  Future<void> toggleStreakAlert(bool value) async {
+    isStreakAlertEnabled.value = value;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('streak_alert', value);
+  }
+
+  Future<void> toggleNewMaterialAlert(bool value) async {
+    isNewMaterialAlertEnabled.value = value;
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('new_material_alert', value);
   }
 
   Future<void> fetchProfile() async {
@@ -96,25 +132,7 @@ class ProfileController extends GetxController {
         },
       );
 
-      Get.snackbar(
-        'Berhasil',
-        'Profil Anda berhasil diperbarui!',
-        snackPosition: SnackPosition.TOP,
-        backgroundColor: const Color(0xFF0056FF),
-        colorText: Colors.white,
-        duration: const Duration(seconds: 2),
-      );
-
-      await Future.delayed(const Duration(milliseconds: 1200));
-
-      if (Get.isSnackbarOpen) {
-        
-        Get.offAllNamed(
-          '/main-navigation',
-        ); 
-      } else {
-        Get.back();
-      }
+      _showSuccessDialog('Profil Anda berhasil diperbarui!');
     } on dio_pkg.DioException catch (e) {
       _showErrorSnackbar('Gagal Memperbarui Profil', e);
     } finally {
@@ -155,15 +173,7 @@ class ProfileController extends GetxController {
       );
 
       clearPasswordFields();
-      if (Get.isDialogOpen ?? false) Get.back();
-
-      Get.snackbar(
-        'Berhasil',
-        'Password Anda berhasil diperbarui!',
-        snackPosition: SnackPosition.TOP,
-        backgroundColor: const Color(0xFF0056FF),
-        colorText: Colors.white,
-      );
+      _showSuccessDialog('Kata sandi Anda berhasil diperbarui!');
     } on dio_pkg.DioException catch (e) {
       _showErrorSnackbar('Gagal Mengubah Password', e);
     } finally {
@@ -181,16 +191,39 @@ class ProfileController extends GetxController {
     try {
       final XFile? pickedFile = await _picker.pickImage(
         source: source,
-        maxWidth: 500,
-        imageQuality: 80,
+        maxWidth: 1000,
+        imageQuality: 90,
       );
       if (pickedFile == null) return;
 
+      // Crop image using image_cropper package
+      final croppedFile = await ImageCropper().cropImage(
+        sourcePath: pickedFile.path,
+        uiSettings: [
+          AndroidUiSettings(
+            toolbarTitle: 'Crop Foto Profil',
+            toolbarColor: const Color(0xFF0056FF),
+            toolbarWidgetColor: Colors.white,
+            initAspectRatio: CropAspectRatioPreset.square,
+            lockAspectRatio: true,
+            cropStyle: CropStyle.circle, // Circular crop
+          ),
+          IOSUiSettings(
+            title: 'Crop Foto Profil',
+            cropStyle: CropStyle.circle, // Circular crop
+            aspectRatioLockEnabled: true,
+          ),
+        ],
+      );
+
+      if (croppedFile == null) return;
+      final String croppedPath = croppedFile.path;
+
       isLoading.value = true;
-      String fileName = pickedFile.path.split('/').last;
+      String fileName = croppedPath.split('/').last;
       dio_pkg.FormData formData = dio_pkg.FormData.fromMap({
         "file": await dio_pkg.MultipartFile.fromFile(
-          pickedFile.path,
+          croppedPath,
           filename: fileName,
         ),
       });
@@ -231,15 +264,67 @@ class ProfileController extends GetxController {
     );
   }
 
-  @override
-  void onClose() {
-    nameController.dispose();
-    emailController.dispose();
-    levelController.dispose();
-    majorController.dispose();
-    currentPasswordController.dispose();
-    newPasswordController.dispose();
-    confirmPasswordController.dispose();
-    super.onClose();
+  void _showSuccessDialog(String message) {
+    Get.dialog(
+      Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(
+                Icons.check_circle_outline_rounded,
+                color: Color(0xFF10B981),
+                size: 64,
+              ),
+              const SizedBox(height: 16),
+              const Text(
+                'Berhasil Disimpan',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF1E293B),
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                message,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: Color(0xFF64748B),
+                ),
+              ),
+              const SizedBox(height: 24),
+              SizedBox(
+                width: double.infinity,
+                height: 48,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Get.back(); // Close dialog
+                    Get.back(); // Go back to main profile page
+                    fetchProfile(); // Refresh profile info
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF0056FF),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: const Text(
+                    'OK',
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      barrierDismissible: false,
+    );
   }
+
 }

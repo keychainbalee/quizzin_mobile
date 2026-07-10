@@ -32,6 +32,14 @@ import '../modules/scan/bindings/scan_binding.dart';
 import '../modules/scan/views/scan_view.dart';
 import '../modules/history/bindings/history_binding.dart';
 import '../modules/history/views/history_view.dart';
+import '../modules/edit_profile/bindings/edit_profile_binding.dart';
+import '../modules/edit_profile/views/edit_profile_view.dart';
+import '../modules/security_settings/bindings/security_settings_binding.dart';
+import '../modules/security_settings/views/security_settings_view.dart';
+import '../modules/notification_settings/bindings/notification_settings_binding.dart';
+import '../modules/notification_settings/views/notification_settings_view.dart';
+import '../modules/faq/bindings/faq_binding.dart';
+import '../modules/faq/views/faq_view.dart';
 
 part 'app_routes.dart';
 
@@ -127,6 +135,26 @@ class AppPages {
       name: _Paths.HISTORY,
       page: () => const HistoryView(),
       binding: HistoryBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_PROFILE,
+      page: () => const EditProfileView(),
+      binding: EditProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.SECURITY_SETTINGS,
+      page: () => const SecuritySettingsView(),
+      binding: SecuritySettingsBinding(),
+    ),
+    GetPage(
+      name: _Paths.NOTIFICATION_SETTINGS,
+      page: () => const NotificationSettingsView(),
+      binding: NotificationSettingsBinding(),
+    ),
+    GetPage(
+      name: _Paths.FAQ,
+      page: () => const FaqView(),
+      binding: FaqBinding(),
     ),
   ];
 }

@@ -115,9 +115,5 @@ class AllMaterialsController extends GetxController {
     Get.toNamed('/chapter-details', arguments: docId);
   }
 
-  @override
-  void onClose() {
-    searchController.dispose();
-    super.onClose();
-  }
+
 }

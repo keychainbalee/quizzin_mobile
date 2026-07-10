@@ -41,7 +41,7 @@ class SelectDifficultyView extends GetView<SelectDifficultyController> {
             padding: EdgeInsets.only(right: 20.0),
             child: Center(
               child: Text(
-                'Intellect',
+                'Kecerdasan',
                 style: TextStyle(color: primaryColor, fontWeight: FontWeight.bold, fontSize: 16),
               ),
             ),
@@ -58,13 +58,13 @@ class SelectDifficultyView extends GetView<SelectDifficultyController> {
                 child: Column(
                   children: [
                     _buildSlideAnimation(
-                      const Text('Select Difficulty', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.black87)),
+                      const Text('Pilih Tingkat Kesulitan', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.black87)),
                       0,
                     ),
                     const SizedBox(height: 12),
                     _buildSlideAnimation(
                       const Text(
-                        'Choose the challenge level that best matches your current academic goals for this module.',
+                        'Pilih tingkat tantangan yang paling sesuai dengan tujuan akademik Anda untuk kuis ini.',
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 15, color: Colors.black54, height: 1.5),
                       ),
@@ -79,8 +79,8 @@ class SelectDifficultyView extends GetView<SelectDifficultyController> {
                         children: [
                           _buildSlideAnimation(
                             DifficultyCard(
-                              title: 'Easy',
-                              description: 'Focuses on foundational concepts and straightforward recall. Ideal for warming up.',
+                              title: 'Easy (Mudah)',
+                              description: 'Fokus pada konsep dasar dan ingatan langsung. Ideal untuk pemanasan.',
                               icon: Icons.sentiment_satisfied_alt_rounded,
                               iconBgColor: const Color(0xFFE8F1FF),
                               iconColor: primaryColor,
@@ -93,8 +93,8 @@ class SelectDifficultyView extends GetView<SelectDifficultyController> {
                           
                           _buildSlideAnimation(
                             DifficultyCard(
-                              title: 'Medium',
-                              description: 'Requires applying concepts to standard problems. Balances speed and accuracy.',
+                              title: 'Medium (Sedang)',
+                              description: 'Membutuhkan penerapan konsep ke masalah standar. Menyeimbangkan kecepatan dan akurasi.',
                               icon: Icons.bar_chart_rounded,
                               iconBgColor: const Color(0xFFE8F1FF),
                               iconColor: primaryColor,
@@ -107,8 +107,8 @@ class SelectDifficultyView extends GetView<SelectDifficultyController> {
                           
                           _buildSlideAnimation(
                             DifficultyCard(
-                              title: 'HOTS',
-                              description: 'Higher Order Thinking Skills. Complex problem solving, synthesis, and critical analysis.',
+                              title: 'HOTS (Sulit)',
+                              description: 'Keterampilan Berpikir Tingkat Tinggi. Pemecahan masalah kompleks, sintesis, dan analisis kritis.',
                               icon: Icons.psychology_rounded,
                               iconBgColor: const Color(0xFFFFEBEE), 
                               iconColor: const Color(0xFFD32F2F), 
@@ -132,7 +132,7 @@ class SelectDifficultyView extends GetView<SelectDifficultyController> {
                 height: 52,
                 child: ElevatedButton.icon(
                   onPressed: () => controller.startQuiz(),
-                  icon: const Text('Start Quiz', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white)),
+                  icon: const Text('Mulai Kuis', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white)),
                   label: const Icon(Icons.arrow_forward_rounded, color: Colors.white, size: 20),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: primaryColor,

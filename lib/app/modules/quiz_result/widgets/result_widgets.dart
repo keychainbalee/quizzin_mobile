@@ -92,11 +92,45 @@ class QuestionReviewCard extends StatelessWidget {
     bool isCorrect = result['is_correct'] ?? false;
     String qType = result['question_type'] ?? 'multiple_choice';
     List? optionsList = result['options']; 
+    int score = (result['score'] as num?)?.toInt() ?? 0;
     
-    Color statusColor = isCorrect ? Colors.green.shade600 : Colors.red.shade600;
-    Color statusBg = isCorrect ? Colors.green.shade50 : Colors.red.shade50;
-
     bool isEssay = qType.toLowerCase() == 'essay';
+    
+    Color statusColor;
+    Color statusBg;
+    String statusText;
+    IconData statusIcon;
+
+    if (isEssay) {
+      if (score >= 6) {
+        statusColor = Colors.green.shade600;
+        statusBg = Colors.green.shade50;
+        statusText = 'Sempurna ($score/8)';
+        statusIcon = Icons.stars_rounded;
+      } else if (score >= 2 && score <= 4) {
+        statusColor = Colors.orange.shade700;
+        statusBg = Colors.orange.shade50;
+        statusText = 'Kurang Tepat ($score/8)';
+        statusIcon = Icons.rule_rounded;
+      } else {
+        statusColor = Colors.red.shade600;
+        statusBg = Colors.red.shade50;
+        statusText = score > 0 ? 'Kurang Tepat ($score/8)' : 'Kosong / Salah ($score/8)';
+        statusIcon = Icons.cancel_rounded;
+      }
+    } else {
+      if (isCorrect) {
+        statusColor = Colors.green.shade600;
+        statusBg = Colors.green.shade50;
+        statusText = 'Benar (+$score)';
+        statusIcon = Icons.check_circle_rounded;
+      } else {
+        statusColor = Colors.red.shade600;
+        statusBg = Colors.red.shade50;
+        statusText = 'Salah';
+        statusIcon = Icons.cancel_rounded;
+      }
+    }
 
     // Ambil teks display jawaban kamu
     String displayUserAnswer = _getCompleteAnswerText(result['user_answer'], optionsList);
@@ -125,10 +159,10 @@ class QuestionReviewCard extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Icon(isCorrect ? Icons.check_circle_rounded : Icons.cancel_rounded, color: statusColor, size: 16),
+                    Icon(statusIcon, color: statusColor, size: 16),
                     const SizedBox(width: 4),
                     Text(
-                      isCorrect ? 'Benar (+${result['score']})' : 'Salah',
+                      statusText,
                       style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: statusColor),
                     ),
                   ],

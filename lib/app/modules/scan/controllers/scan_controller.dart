@@ -3,19 +3,56 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:quizzin/app/services/api_service.dart';
+import 'package:quizzin/app/modules/main_navigation/controllers/main_navigation_controller.dart';
 
 class ScanController extends GetxController {
-  final MobileScannerController cameraController = MobileScannerController(
-    detectionSpeed: DetectionSpeed.normal,
-    facing: CameraFacing.back,
-    torchEnabled: false,
-  );
+  MobileScannerController? _cameraController;
+
+  MobileScannerController get cameraController {
+    if (_cameraController == null) {
+      _cameraController = MobileScannerController(
+        detectionSpeed: DetectionSpeed.normal,
+        facing: CameraFacing.back,
+        torchEnabled: false,
+      );
+    }
+    return _cameraController!;
+  }
 
   final isScanning = true.obs;
+  final isCameraActive = false.obs;
   final ApiService _apiService = ApiService();
 
+  @override
+  void onInit() {
+    super.onInit();
+    if (Get.isRegistered<MainNavigationController>()) {
+      final navCtrl = Get.find<MainNavigationController>();
+      
+      // Set initial camera state based on current navigation page index (Scan is index 2)
+      isCameraActive.value = navCtrl.currentIndex.value == 2;
+      if (isCameraActive.value) {
+        cameraController.start();
+      }
+      
+      // Watch navigation tab changes
+      ever(navCtrl.currentIndex, (int index) {
+        final active = index == 2;
+        isCameraActive.value = active;
+        if (active) {
+          cameraController.start();
+        } else {
+          _disposeCameraController();
+        }
+      });
+    } else {
+      isCameraActive.value = true;
+      cameraController.start();
+    }
+  }
+
   void onDetect(BarcodeCapture capture) async {
-    if (!isScanning.value) return;
+    if (!isCameraActive.value || !isScanning.value) return;
     
     final List<Barcode> barcodes = capture.barcodes;
     for (final barcode in barcodes) {
@@ -224,16 +261,23 @@ class ScanController extends GetxController {
   }
 
   void toggleTorch() {
-    cameraController.toggleTorch();
+    _cameraController?.toggleTorch();
   }
   
   void switchCamera() {
-    cameraController.switchCamera();
+    _cameraController?.switchCamera();
+  }
+
+  void _disposeCameraController() {
+    if (_cameraController != null) {
+      _cameraController!.dispose();
+      _cameraController = null;
+    }
   }
 
   @override
   void onClose() {
-    cameraController.dispose();
+    _disposeCameraController();
     super.onClose();
   }
 }

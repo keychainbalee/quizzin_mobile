@@ -52,12 +52,12 @@ class RegisterView extends GetView<RegisterController> {
                       ),
                       const SizedBox(height: 12),
                       const Text(
-                        "Create Account",
+                        "Buat Akun",
                         style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Colors.white, letterSpacing: 0.5),
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        "Enter your details to start your learning journey",
+                        "Masukkan detail Anda untuk memulai perjalanan belajar",
                         style: TextStyle(fontSize: 13, color: Colors.white.withOpacity(0.80)),
                       ),
                     ],
@@ -70,7 +70,7 @@ class RegisterView extends GetView<RegisterController> {
           Positioned.fill(
             child: SafeArea(
               child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 child: Column(
                   children: [
                     SizedBox(height: MediaQuery.of(context).size.height * 0.33),
@@ -83,7 +83,7 @@ class RegisterView extends GetView<RegisterController> {
                           // PERBAIKAN: Input Nama Lengkap Beranimasi
                           _AnimatedCapsuleInput(
                             controller: controller.nameController,
-                            hintText: "Full Name",
+                            hintText: "Nama Lengkap",
                             prefixIcon: Icons.person_outline_rounded,
                           ),
                           const SizedBox(height: 16),
@@ -91,7 +91,7 @@ class RegisterView extends GetView<RegisterController> {
                           // PERBAIKAN: Input Email Beranimasi
                           _AnimatedCapsuleInput(
                             controller: controller.emailController,
-                            hintText: "Email Address",
+                            hintText: "Alamat Email",
                             prefixIcon: Icons.email_outlined,
                             keyboardType: TextInputType.emailAddress,
                           ),
@@ -100,7 +100,7 @@ class RegisterView extends GetView<RegisterController> {
                           // PERBAIKAN: Input Password Beranimasi
                           _AnimatedCapsuleInput(
                             controller: controller.passwordController,
-                            hintText: "Password",
+                            hintText: "Kata Sandi",
                             prefixIcon: Icons.lock_outline_rounded,
                             obscureText: true,
                           ),
@@ -125,7 +125,7 @@ class RegisterView extends GetView<RegisterController> {
                                       width: 24, height: 24,
                                       child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2.5),
                                     )
-                                  : const Text("Sign Up", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, letterSpacing: 0.5)),
+                                  : const Text("Daftar", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, letterSpacing: 0.5)),
                             )),
                           ),
                           const SizedBox(height: 32),
@@ -134,11 +134,11 @@ class RegisterView extends GetView<RegisterController> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("Already have an account? ", style: TextStyle(color: Colors.grey.shade600, fontSize: 14)),
+                              Text("Sudah memiliki akun? ", style: TextStyle(color: Colors.grey.shade600, fontSize: 14)),
                               GestureDetector(
                                 onTap: () => Get.back(),
                                 child: const Text(
-                                  "Log in",
+                                  "Masuk",
                                   style: TextStyle(color: primaryColor, fontWeight: FontWeight.bold, fontSize: 14),
                                 ),
                               ),

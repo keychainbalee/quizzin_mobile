@@ -70,7 +70,7 @@ class LoginView extends GetView<LoginController> {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        "Continue your advanced learning journey",
+                        "Lanjutkan perjalanan belajar cerdas Anda",
                         style: TextStyle(
                           fontSize: 13,
                           color: Colors.white.withOpacity(0.80),
@@ -86,7 +86,7 @@ class LoginView extends GetView<LoginController> {
           Positioned.fill(
             child: SafeArea(
               child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 child: Column(
                   children: [
                     SizedBox(height: MediaQuery.of(context).size.height * 0.36),
@@ -98,7 +98,7 @@ class LoginView extends GetView<LoginController> {
                         children: [
                           _AnimatedCapsuleInput(
                             controller: controller.emailController,
-                            hintText: "Email Address",
+                            hintText: "Alamat Email",
                             prefixIcon: Icons.email_outlined,
                             keyboardType: TextInputType.emailAddress,
                           ),
@@ -106,7 +106,7 @@ class LoginView extends GetView<LoginController> {
 
                           _AnimatedCapsuleInput(
                             controller: controller.passwordController,
-                            hintText: "Password",
+                            hintText: "Kata Sandi",
                             prefixIcon: Icons.lock_outlined,
                             obscureText: true,
                           ),
@@ -121,7 +121,7 @@ class LoginView extends GetView<LoginController> {
                                 padding: const EdgeInsets.all(4),
                               ),
                               child: const Text(
-                                'Forgot Password?',
+                                'Lupa Kata Sandi?',
                                 style: TextStyle(
                                   color: Colors.grey,
                                   fontSize: 13,
@@ -158,7 +158,7 @@ class LoginView extends GetView<LoginController> {
                                         ),
                                       )
                                     : const Text(
-                                        "Login",
+                                        "Masuk",
                                         style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold,
@@ -182,7 +182,7 @@ class LoginView extends GetView<LoginController> {
                                   size: 22,
                                 ),
                                 label: const Text(
-                                  "Login with Face ID",
+                                  "Masuk dengan Face ID",
                                   style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w600,
@@ -207,7 +207,7 @@ class LoginView extends GetView<LoginController> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                "Don't have an account? ",
+                                "Belum memiliki akun? ",
                                 style: TextStyle(
                                   color: Colors.grey.shade600,
                                   fontSize: 14,
@@ -216,7 +216,7 @@ class LoginView extends GetView<LoginController> {
                               GestureDetector(
                                 onTap: () => Get.toNamed('/register'),
                                 child: const Text(
-                                  "Register",
+                                  "Daftar",
                                   style: TextStyle(
                                     color: primaryColor,
                                     fontWeight: FontWeight.bold,

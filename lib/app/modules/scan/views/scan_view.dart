@@ -36,42 +36,67 @@ class ScanView extends GetView<ScanController> {
           )
         ],
       ),
-      body: Stack(
-        children: [
-          MobileScanner(
-            controller: controller.cameraController,
-            onDetect: controller.onDetect,
-          ),
-          Center(
-            child: Container(
-              width: 250,
-              height: 250,
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.blue, width: 3),
-                borderRadius: BorderRadius.circular(12),
+      body: Obx(() {
+        if (!controller.isCameraActive.value) {
+          return Container(
+            color: Colors.black,
+            child: const Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.videocam_off,
+                    color: Colors.white54,
+                    size: 48,
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    'Kamera dinonaktifkan',
+                    style: TextStyle(color: Colors.white70, fontSize: 14),
+                  ),
+                ],
               ),
             ),
-          ),
-          Positioned(
-            bottom: 40,
-            left: 0,
-            right: 0,
-            child: Center(
+          );
+        }
+
+        return Stack(
+          children: [
+            MobileScanner(
+              controller: controller.cameraController,
+              onDetect: controller.onDetect,
+            ),
+            Center(
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                width: 250,
+                height: 250,
                 decoration: BoxDecoration(
-                  color: Colors.black54,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: const Text(
-                  'Arahkan kamera ke QR Code',
-                  style: TextStyle(color: Colors.white, fontSize: 16),
+                  border: Border.all(color: Colors.blue, width: 3),
+                  borderRadius: BorderRadius.circular(12),
                 ),
               ),
             ),
-          )
-        ],
-      ),
+            Positioned(
+              bottom: 40,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.black54,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: const Text(
+                    'Arahkan kamera ke QR Code',
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+                ),
+              ),
+            )
+          ],
+        );
+      }),
     );
   }
 }

@@ -36,8 +36,8 @@ class ChapterDetailsView extends GetView<ChapterDetailsController> {
           onPressed: () => Get.back(),
         ),
         title: const Text(
-          'Intellect',
-          style: TextStyle(color: primaryColor, fontWeight: FontWeight.bold),
+          'Kecerdasan',
+          style: TextStyle(color: primaryColor, fontWeight: FontWeight.bold, fontSize: 16),
         ),
         centerTitle: true,
         actions: [
@@ -102,7 +102,7 @@ class ChapterDetailsView extends GetView<ChapterDetailsController> {
                                     const SizedBox(width: 6),
                                     Flexible(
                                       child: Text(
-                                        'SOURCE: ${controller.documentTitle.value}',
+                                        'SUMBER: ${controller.documentTitle.value}',
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
@@ -154,7 +154,7 @@ class ChapterDetailsView extends GetView<ChapterDetailsController> {
 
                       _buildStaggeredSlideAnimation(
                         const Text(
-                          'Extracted Chapters',
+                          'Bab yang Diekstrak',
                           style: TextStyle(
                             fontSize: 26,
                             fontWeight: FontWeight.bold,
@@ -167,7 +167,7 @@ class ChapterDetailsView extends GetView<ChapterDetailsController> {
 
                       _buildStaggeredSlideAnimation(
                         const Text(
-                          "We've processed your document and identified key thematic sections. Select a chapter to engage with interactive concepts and track your mastery.",
+                          "Kami telah memproses dokumen Anda dan mengidentifikasi bagian-bagian tematik utama. Pilih bab untuk berinteraksi dengan konsep interaktif dan pantau tingkat penguasaan Anda.",
                           style: TextStyle(
                             fontSize: 15,
                             color: Colors.black54,
@@ -264,8 +264,8 @@ class ChapterDetailsView extends GetView<ChapterDetailsController> {
         ? Colors.white
         : const Color(0xFF0056FF);
     String buttonText = isMastered
-        ? 'Review Concepts'
-        : (isInProgress ? 'Continue Exploring' : 'Explore Concepts');
+        ? 'Tinjau Konsep'
+        : (isInProgress ? 'Lanjutkan Menjelajah' : 'Jelajahi Konsep');
     IconData? buttonIcon = isMastered ? Icons.refresh : Icons.arrow_forward;
 
     return Container(
@@ -309,7 +309,7 @@ class ChapterDetailsView extends GetView<ChapterDetailsController> {
                           Row(
                             children: [
                               Text(
-                                data['chapter'] ?? 'CHAPTER',
+                                data['chapter'] ?? 'BAB',
                                 style: const TextStyle(
                                   fontSize: 10,
                                   fontWeight: FontWeight.bold,
@@ -351,7 +351,7 @@ class ChapterDetailsView extends GetView<ChapterDetailsController> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
-                      'Mastery',
+                      'Penguasaan',
                       style: TextStyle(fontSize: 12, color: Colors.black54),
                     ),
                     Text(

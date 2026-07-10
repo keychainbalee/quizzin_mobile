@@ -37,18 +37,18 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
               
               // Teks Judul
               const Text(
-                'Reset Password',
+                'Atur Ulang Kata Sandi',
                 style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.black87),
               ),
               const SizedBox(height: 12),
               const Text(
-                'Enter the email address associated with your account and we\'ll send you a link to reset your password.',
+                'Masukkan alamat email yang terdaftar pada akun Anda dan kami akan mengirimkan tautan untuk mengatur ulang kata sandi Anda.',
                 style: TextStyle(fontSize: 14, color: Colors.black54, height: 1.5),
               ),
               const SizedBox(height: 40),
               
               // Input Email
-              const Text('Email Address', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black54)),
+              const Text('Alamat Email', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black54)),
               const SizedBox(height: 8),
               TextField(
                 controller: controller.emailController,
@@ -87,7 +87,7 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
                     elevation: 0,
                   ),
                   child: const Text(
-                    'Send Reset Link',
+                    'Kirim Tautan Reset',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
                   ),
                 ),

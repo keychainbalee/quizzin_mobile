@@ -90,8 +90,8 @@ class HomeView extends GetView<HomeController> {
                       : const Icon(Icons.add, color: Colors.white),
                   label: Text(
                     controller.isUploadingDocument.value
-                        ? 'Uploading...'
-                        : 'New Quiz',
+                        ? 'Mengunggah...'
+                        : 'Kuis Baru',
                     style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -147,7 +147,7 @@ class HomeView extends GetView<HomeController> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const Text(
-                          'Recent Materials',
+                          'Materi Terbaru',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -160,7 +160,7 @@ class HomeView extends GetView<HomeController> {
                               : TextButton(
                                   onPressed: () => controller.openAllMaterials(),
                                   child: const Text(
-                                    'See All',
+                                    'Lihat Semua',
                                     style: TextStyle(
                                       color: primaryColor,
                                       fontWeight: FontWeight.w600,
@@ -227,7 +227,7 @@ class HomeView extends GetView<HomeController> {
                 child: Obx(() {
                   if (controller.isProfileLoading.value) {
                     return const Text(
-                      'Welcome back,\nMemuat...',
+                      ',\nMemuat...',
                       style: TextStyle(
                         fontSize: 26,
                         fontWeight: FontWeight.bold,
@@ -237,7 +237,7 @@ class HomeView extends GetView<HomeController> {
                     );
                   }
                   return Text(
-                    'Welcome back,\n${controller.userName.value}! 👋',
+                    'Selamat datang ,\n${controller.userName.value}! 👋',
                     style: const TextStyle(
                       fontSize: 26,
                       fontWeight: FontWeight.bold,
@@ -272,7 +272,7 @@ class HomeView extends GetView<HomeController> {
           const SizedBox(height: 12),
           Obx(
             () => Text(
-              "You're on a ${controller.streakDays.value}-day learning streak. Keep up the momentum in your advanced module.",
+              "Anda dalam streak belajar ${controller.streakDays.value} hari. Pertahankan momentum belajar Anda!",
               style: const TextStyle(
                 color: Colors.white70,
                 fontSize: 14,
@@ -296,7 +296,7 @@ class HomeView extends GetView<HomeController> {
                   children: [
                     Obx(
                       () => Text(
-                        'Level ${controller.level.value} Scholar',
+                        'Tingkat ${controller.level.value} Pelajar',
                         style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -358,7 +358,7 @@ class HomeView extends GetView<HomeController> {
                   color: Color(0xFF0056FF),
                 ),
                 label: Text(
-                  lastReadId != null ? 'Resume Lesson' : 'Explore Materials',
+                  lastReadId != null ? 'Lanjutkan Pelajaran' : 'Jelajahi Materi',
                   style: const TextStyle(
                     color: Color(0xFF0A349E),
                     fontWeight: FontWeight.bold,
@@ -401,7 +401,7 @@ class HomeView extends GetView<HomeController> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: const [
               Text(
-                'Weekly Activity',
+                'Aktivitas Mingguan',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -572,9 +572,9 @@ class HomeView extends GetView<HomeController> {
                         children: [
                           Text(
                             isProcessing
-                                ? 'Processing by AI...'
+                                ? 'Diproses oleh AI...'
                                 : (isFailed
-                                      ? 'Failed to process'
+                                      ? 'Gagal diproses'
                                       : material['type'].toString()),
                             style: TextStyle(
                               fontSize: 11,
@@ -644,7 +644,7 @@ class HomeView extends GetView<HomeController> {
           ),
           const SizedBox(height: 16),
           const Text(
-            'No Recent Materials',
+            'Belum Ada Materi',
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16,
@@ -653,7 +653,7 @@ class HomeView extends GetView<HomeController> {
           ),
           const SizedBox(height: 8),
           const Text(
-            'Upload your first PDF document to start generating smart quizzes.',
+            'Unggah dokumen PDF pertama Anda untuk mulai membuat kuis pintar.',
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 13, color: Colors.black54, height: 1.4),
           ),
@@ -665,7 +665,7 @@ class HomeView extends GetView<HomeController> {
               onPressed: () => controller.addNewMaterial(),
               icon: const Icon(Icons.add, size: 20),
               label: const Text(
-                'Upload PDF',
+                'Unggah PDF',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               style: ElevatedButton.styleFrom(
