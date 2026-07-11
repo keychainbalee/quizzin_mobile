@@ -23,6 +23,7 @@ abstract class Routes {
   static const SECURITY_SETTINGS = _Paths.SECURITY_SETTINGS;
   static const NOTIFICATION_SETTINGS = _Paths.NOTIFICATION_SETTINGS;
   static const FAQ = _Paths.FAQ;
+  static const ONBOARDING = _Paths.ONBOARDING;
 }
 
 abstract class _Paths {
@@ -47,4 +48,5 @@ abstract class _Paths {
   static const SECURITY_SETTINGS = '/security-settings';
   static const NOTIFICATION_SETTINGS = '/notification-settings';
   static const FAQ = '/faq';
+  static const ONBOARDING = '/onboarding';
 }

@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AuthService extends GetxService {
   static const String _tokenKey = 'access_token';
   static const String _userKey = 'user_data';
+  static const String _onboardingKey = 'has_seen_onboarding';
 
   late final SharedPreferences _prefs;
 
@@ -15,6 +16,12 @@ class AuthService extends GetxService {
   String? get token => _prefs.getString(_tokenKey);
 
   bool get isLoggedIn => token != null && token!.isNotEmpty;
+
+  bool get hasSeenOnboarding => _prefs.getBool(_onboardingKey) ?? false;
+
+  Future<void> completeOnboarding() async {
+    await _prefs.setBool(_onboardingKey, true);
+  }
 
   Future<void> saveToken(String token) async {
     await _prefs.setString(_tokenKey, token);

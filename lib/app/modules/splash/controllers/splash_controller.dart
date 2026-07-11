@@ -22,7 +22,11 @@ class SplashController extends GetxController {
         }
         Get.offAllNamed('/main-navigation');
       } else {
-        Get.offAllNamed('/login');
+        if (!authService.hasSeenOnboarding) {
+          Get.offAllNamed('/onboarding');
+        } else {
+          Get.offAllNamed('/login');
+        }
       }
     });
   }
