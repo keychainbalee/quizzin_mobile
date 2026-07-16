@@ -366,6 +366,12 @@ class ProfileView extends GetView<ProfileController> {
                 onTap: () => Get.toNamed('/notification-settings'),
               ),
               _buildMenuTile(
+                icon: Icons.history_rounded,
+                title: 'Log Aktivitas',
+                subtitle: 'Lihat riwayat aktivitas masuk dan perubahan akun',
+                onTap: () => Get.toNamed('/profile/activities'),
+              ),
+              _buildMenuTile(
                 icon: Icons.help_outline_rounded,
                 title: 'Tanya Jawab (FAQ)',
                 subtitle: 'Pusat informasi dan cara belajar di Quizzin',

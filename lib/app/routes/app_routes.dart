@@ -24,6 +24,7 @@ abstract class Routes {
   static const NOTIFICATION_SETTINGS = _Paths.NOTIFICATION_SETTINGS;
   static const FAQ = _Paths.FAQ;
   static const ONBOARDING = _Paths.ONBOARDING;
+  static const PROFILE_ACTIVITIES = _Paths.PROFILE_ACTIVITIES;
 }
 
 abstract class _Paths {
@@ -49,4 +50,5 @@ abstract class _Paths {
   static const NOTIFICATION_SETTINGS = '/notification-settings';
   static const FAQ = '/faq';
   static const ONBOARDING = '/onboarding';
+  static const PROFILE_ACTIVITIES = '/profile/activities';
 }

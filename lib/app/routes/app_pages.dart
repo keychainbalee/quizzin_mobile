@@ -42,6 +42,8 @@ import '../modules/faq/bindings/faq_binding.dart';
 import '../modules/faq/views/faq_view.dart';
 import '../modules/onboarding/bindings/onboarding_binding.dart';
 import '../modules/onboarding/views/onboarding_view.dart';
+import '../modules/activity_log/bindings/activity_log_binding.dart';
+import '../modules/activity_log/views/activity_log_view.dart';
 
 part 'app_routes.dart';
 
@@ -162,6 +164,11 @@ class AppPages {
       name: _Paths.ONBOARDING,
       page: () => const OnboardingView(),
       binding: OnboardingBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROFILE_ACTIVITIES,
+      page: () => const ActivityLogView(),
+      binding: ActivityLogBinding(),
     ),
   ];
 }
